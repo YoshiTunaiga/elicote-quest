@@ -5,10 +5,7 @@ export const componentStyles = StyleSheet.create({
   backgroundContainer: {
     backgroundColor: COLORS.lightPurple,
     flex: 1,
-    paddingTop: 30,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
+    padding: 10,
   },
   wrapperContainer: {
     backgroundColor: COLORS.semanticWhite,
