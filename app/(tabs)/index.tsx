@@ -1,5 +1,5 @@
 import { ThemedButton } from "@/components/ThemedButton";
-import { COLORS } from "@/constants/Colors";
+import { APP_COLORS } from "@/constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Text } from "react-native";
 
@@ -10,30 +10,39 @@ type navigationProps = {
 export default function HomeScreen() {
   const navigation = useNavigation<navigationProps>();
 
+  const onStart = () => {
+    navigation.navigate("explore");
+  };
+
   return (
     <View style={styles.backgroundContainer}>
       <View style={styles.wrapperContainer}>
-        <Text style={{ fontSize: 50, fontWeight: "bold", color: "#5828D3" }}>
+        <Text
+          style={{
+            fontSize: 50,
+            fontWeight: "bold",
+            color: APP_COLORS.darkPurple,
+          }}>
           Elite Quest
         </Text>
         <ThemedButton
-          title="Start"
+          title="START"
           buttonStyle={{
             padding: 10,
             margin: 10,
-            width: 85,
+            width: 90,
             borderWidth: 1,
-            borderColor: COLORS.darkPurple,
+            borderColor: APP_COLORS.darkPurple,
             borderRadius: 10,
-            backgroundColor: COLORS.semanticWhite,
+            backgroundColor: APP_COLORS.semanticWhite,
           }}
           textStyle={{
-            color: COLORS.darkPurple,
+            color: APP_COLORS.darkPurple,
             fontSize: 20,
             fontWeight: "bold",
             textAlign: "center",
           }}
-          onPress={() => navigation.navigate("explore")}
+          onPress={onStart}
         />
       </View>
     </View>
@@ -42,7 +51,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   backgroundContainer: {
-    backgroundColor: "#A799E0",
+    backgroundColor: APP_COLORS.lightPurple,
     flex: 1,
     paddingTop: 30,
     paddingLeft: 10,
@@ -50,7 +59,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   wrapperContainer: {
-    backgroundColor: "white",
+    backgroundColor: APP_COLORS.semanticWhite,
     paddingTop: 40,
     borderRadius: 10,
     flex: 1,

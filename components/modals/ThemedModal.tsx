@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 
 // Styles
-import { COLORS } from "@/constants/Colors";
+import { APP_COLORS } from "@/constants/Colors";
 
 type ThemedModalProps = {
   visible: boolean;
@@ -13,7 +13,7 @@ export function ThemedModal({ visible, children }: ThemedModalProps) {
   return (
     <Modal
       isVisible={visible}
-      backdropColor={COLORS.lightPurple}
+      backdropColor={APP_COLORS.lightPurple}
       backdropOpacity={0.8}
       animationIn="zoomInDown"
       animationOut="zoomOutUp"

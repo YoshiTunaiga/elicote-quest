@@ -1,6 +1,7 @@
 // React native progress bar component in tsx format
+import { APP_COLORS } from "@/constants/Colors";
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Animated } from "react-native";
+import { View, StyleSheet, Animated } from "react-native";
 
 export type ThemedProgressBarProps = {
   progressInt: number;
@@ -25,7 +26,7 @@ const ProgressBar = ({ progressInt }: ThemedProgressBarProps) => {
 const styles = StyleSheet.create({
   container: {
     height: 20,
-    backgroundColor: "#dfc8c8",
+    backgroundColor: APP_COLORS.barColor,
     borderRadius: 10,
     marginTop: 10,
     marginBottom: 10,
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
   },
   bar: {
     height: 20,
-    backgroundColor: "#5828D3",
+    backgroundColor: APP_COLORS.darkPurple,
     borderRadius: 10,
   },
 });

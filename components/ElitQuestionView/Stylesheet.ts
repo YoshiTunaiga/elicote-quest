@@ -1,14 +1,14 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "@/constants/Colors";
+import { APP_COLORS } from "@/constants/Colors";
 
 export const componentStyles = StyleSheet.create({
   backgroundContainer: {
-    backgroundColor: COLORS.lightPurple,
+    backgroundColor: APP_COLORS.lightPurple,
     flex: 1,
     padding: 10,
   },
   wrapperContainer: {
-    backgroundColor: COLORS.semanticWhite,
+    backgroundColor: APP_COLORS.semanticWhite,
     paddingTop: 40,
     borderRadius: 10,
     flex: 1,
@@ -33,7 +33,7 @@ export const componentStyles = StyleSheet.create({
     width: "70%",
   },
   singleOption: {
-    color: COLORS.darkPurple,
+    color: APP_COLORS.darkPurple,
     fontWeight: "bold",
     fontSize: 20,
   },
@@ -43,10 +43,10 @@ export const componentStyles = StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 10,
     paddingBottom: 20,
-    backgroundColor: COLORS.yellowCodeBlock,
+    backgroundColor: APP_COLORS.yellowCodeBlock,
   },
   textStyle: {
-    color: COLORS.semanticWhite,
+    color: APP_COLORS.semanticWhite,
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
@@ -56,13 +56,13 @@ export const componentStyles = StyleSheet.create({
     margin: 10,
     width: 150,
     borderRadius: 10,
-    backgroundColor: COLORS.darkPurple,
+    backgroundColor: APP_COLORS.darkPurple,
   },
 });
 
 export const markdownStyles = StyleSheet.create({
   text: {
-    color: "#5828D3",
+    color: APP_COLORS.darkPurple,
     fontSize: 16,
   },
 });

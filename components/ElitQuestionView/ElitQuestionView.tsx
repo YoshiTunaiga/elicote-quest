@@ -17,7 +17,7 @@ import { CongratulationsModal } from "../modals/CongratulationsModal";
 
 // Styles
 import { componentStyles, markdownStyles } from "./Stylesheet";
-import { COLORS } from "@/constants/Colors";
+import { APP_COLORS } from "@/constants/Colors";
 import { HintErrorResponseModal } from "../modals/HintErrorResponseModal";
 
 export default function ElitQuestionView() {
@@ -71,7 +71,7 @@ export default function ElitQuestionView() {
         contentInsetAdjustmentBehavior="automatic"
         style={{
           height: "100%",
-          backgroundColor: COLORS.semanticWhite,
+          backgroundColor: APP_COLORS.semanticWhite,
           paddingTop: questObj > 0 ? 10 : 40,
           borderRadius: 16,
         }}>
@@ -80,7 +80,7 @@ export default function ElitQuestionView() {
             <AntDesign
               name="leftcircleo"
               size={30}
-              color={COLORS.darkPurple}
+              color={APP_COLORS.darkPurple}
               onPress={onBackPress}
             />
           </View>
@@ -110,8 +110,8 @@ export default function ElitQuestionView() {
                   ...componentStyles.optionsStyle,
                   backgroundColor:
                     selectedOptionStyle && option === response
-                      ? COLORS.mediumPurple
-                      : COLORS.lightPurple,
+                      ? APP_COLORS.mediumPurple
+                      : APP_COLORS.lightPurple,
                 }}
                 onPress={() => onOptionPress(option)}>
                 <Text style={componentStyles.singleOption}>{option}</Text>

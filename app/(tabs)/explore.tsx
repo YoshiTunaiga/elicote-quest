@@ -1,4 +1,5 @@
 import ElitQuestionView from "@/components/ElitQuestionView/ElitQuestionView";
+import { APP_COLORS } from "@/constants/Colors";
 import { StyleSheet, View } from "react-native";
 
 export default function TabTwoScreen() {
@@ -11,7 +12,7 @@ export default function TabTwoScreen() {
 
 const styles = StyleSheet.create({
   backgroundContainer: {
-    backgroundColor: "#A799E0",
+    backgroundColor: APP_COLORS.lightPurple,
     flex: 1,
     paddingTop: 30,
     paddingLeft: 10,
