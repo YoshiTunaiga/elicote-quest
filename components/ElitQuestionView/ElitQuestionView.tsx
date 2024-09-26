@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Markdown from "react-native-markdown-display";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import {
@@ -111,10 +111,19 @@ export default function ElitQuestionView() {
                   backgroundColor:
                     selectedOptionStyle && option === response
                       ? APP_COLORS.mediumPurple
-                      : APP_COLORS.lightPurple,
+                      : APP_COLORS.lighterPurple,
                 }}
                 onPress={() => onOptionPress(option)}>
-                <Text style={componentStyles.singleOption}>{option}</Text>
+                <Text
+                  style={{
+                    ...componentStyles.singleOption,
+                    color:
+                      selectedOptionStyle && option === response
+                        ? APP_COLORS.semanticWhite
+                        : APP_COLORS.darkPurple,
+                  }}>
+                  {option}
+                </Text>
               </TouchableOpacity>
             ))}
           </View>

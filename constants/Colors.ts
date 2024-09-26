@@ -26,6 +26,7 @@ export const Colors = {
 };
 
 export const APP_COLORS = {
+  lighterPurple: "#D8CEFF",
   lightPurple: "#A799E0",
   mediumPurple: "#9586D1",
   darkPurple: "#5828D3",

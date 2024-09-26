@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import Modal from "react-native-modal";
 
 // Styles
@@ -8,6 +8,8 @@ type ThemedModalProps = {
   visible: boolean;
   children: React.ReactNode;
 };
+
+const { width } = Dimensions.get("window");
 
 export function ThemedModal({ visible, children }: ThemedModalProps) {
   return (
@@ -33,6 +35,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignSelf: "center",
-    width: "80%",
+    width: width > 600 ? 600 : width - 40,
   },
 });
