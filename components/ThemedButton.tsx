@@ -10,9 +10,10 @@ export function ThemedButton({
   title,
   textStyle,
   buttonStyle,
+  onPress,
 }: ThemedTextProps) {
   return (
-    <TouchableOpacity style={buttonStyle}>
+    <TouchableOpacity style={buttonStyle} onPress={onPress}>
       <Text style={textStyle}>{title}</Text>
     </TouchableOpacity>
   );

@@ -1,68 +1,138 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { ThemedButton } from "./ThemedButton";
 import ProgressBar from "./ProgressBar";
 import { questionsData } from "../assets/mockData/questionsData";
 import { useState } from "react";
+import Markdown from "react-native-markdown-display";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function ElitQuestionView() {
   const [questObj, setQuestObj] = useState(0);
   const data = questionsData[questObj];
   const [response, setResponse] = useState("");
+  const [selectedOptionStyle, setSelectedOptionStyle] = useState(false);
 
   const onOptionPress = (option: string) => {
     setResponse(option);
+    setSelectedOptionStyle(true);
+  };
+
+  const onSubmit = () => {
+    if (response === data.answer) {
+      setQuestObj(questObj + 1);
+      setResponse("");
+      setSelectedOptionStyle(false);
+    }
+  };
+
+  const onBackPress = () => {
+    if (questObj > 0) {
+      setQuestObj(questObj - 1);
+      setResponse("");
+      setSelectedOptionStyle(false);
+    }
   };
 
   return (
-    <View style={styles.wrapperContainer}>
-      <ProgressBar progressInt={50} />
-      <View>
-        <View style={{ paddingBottom: 10, paddingLeft: 20, paddingRight: 20 }}>
-          <Text style={{ fontSize: 18 }}>{data.question}</Text>
-        </View>
-        {data.display ? (
-          <View style={styles.displayContainer}>
-            <Text style={{ fontSize: 18 }}>{data.display}</Text>
+    <SafeAreaView>
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={{
+          height: "100%",
+          backgroundColor: "white",
+          paddingTop: questObj > 0 ? 10 : 40,
+          borderRadius: 16,
+        }}>
+        {questObj > 0 ? (
+          <View style={{ paddingLeft: 20 }}>
+            <AntDesign
+              name="leftcircleo"
+              size={30}
+              color="#5828D3"
+              onPress={() => onBackPress()}
+            />
           </View>
         ) : null}
-        <View style={styles.optionsContainer}>
-          {data.options.map((option, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.optionsStyle}
-              onPress={() => setResponse(option)}>
-              <Text style={styles.singleOption}>{option}</Text>
-            </TouchableOpacity>
-          ))}
+        <ProgressBar progressInt={50} />
+
+        {/* ------- QUESTION DISPLAY --------- */}
+        <View>
+          <View
+            style={{ paddingBottom: 10, paddingLeft: 20, paddingRight: 20 }}>
+            <Text style={{ fontSize: 18 }}>{data.question}</Text>
+          </View>
+
+          {/* ------- MARKDOWN DISPLAY --------- */}
+          {data.display ? (
+            <View style={styles.displayContainer}>
+              <Markdown style={markdownStyles}>{data.display}</Markdown>
+            </View>
+          ) : null}
+
+          {/* ------- OPTIONS --------- */}
+          <View style={styles.optionsContainer}>
+            {data.options.map((option, index) => (
+              <TouchableOpacity
+                key={index}
+                style={{
+                  ...styles.optionsStyle,
+                  backgroundColor:
+                    selectedOptionStyle && option === response
+                      ? "#967FF1"
+                      : "#D8CEFF",
+                }}
+                onPress={() => onOptionPress(option)}>
+                <Text style={styles.singleOption}>{option}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          {/* ------- SUBMIT BUTTON --------- */}
+          <View
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              paddingTop: 10,
+            }}>
+            <ThemedButton
+              title="SUBMIT"
+              textStyle={{
+                color: "white",
+                fontSize: 16,
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+              buttonStyle={{
+                padding: 10,
+                margin: 10,
+                width: 150,
+                borderRadius: 10,
+                backgroundColor: "#9586D1",
+              }}
+              onPress={() => onSubmit()}
+            />
+          </View>
         </View>
-        {response ? <Text>{response}</Text> : null}
-        <View
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}>
-          <ThemedButton
-            title="SUBMIT"
-            textStyle={{
-              color: "white",
-              fontSize: 16,
-              fontWeight: "bold",
-              textAlign: "center",
-            }}
-            buttonStyle={{
-              padding: 10,
-              margin: 10,
-              width: 150,
-              borderRadius: 10,
-              backgroundColor: "#9586D1",
-            }}
-          />
-        </View>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
+
+const markdownStyles = StyleSheet.create({
+  text: {
+    color: "#5828D3",
+    fontSize: 16,
+  },
+});
 
 const styles = StyleSheet.create({
   backgroundContainer: {
@@ -80,7 +150,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   optionsContainer: {
-    paddingTop: 20,
+    paddingTop: 10,
     paddingRight: 20,
     paddingLeft: 20,
     display: "flex",
@@ -94,7 +164,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    backgroundColor: "#D8CEFF",
+    // backgroundColor: "#D8CEFF",
     padding: 20,
     height: 60,
     width: "70%",
