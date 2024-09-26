@@ -1,24 +1,33 @@
+import { useState } from "react";
+import Markdown from "react-native-markdown-display";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import {
-  Image,
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { ThemedButton } from "./ThemedButton";
-import ProgressBar from "./ProgressBar";
-import { questionsData } from "../assets/mockData/questionsData";
-import { useState } from "react";
-import Markdown from "react-native-markdown-display";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import { questionsData } from "../../assets/mockData/questionsData";
+
+// Components
+import { ThemedButton } from "../ThemedButton";
+import ProgressBar from "../ProgressBar";
+import { CongratulationsModal } from "../modals/CongratulationsModal";
+
+// Styles
+import { componentStyles, markdownStyles } from "./Stylesheet";
+import { COLORS } from "@/constants/Colors";
+import { HintErrorResponseModal } from "../modals/HintErrorResponseModal";
 
 export default function ElitQuestionView() {
   const [questObj, setQuestObj] = useState(0);
   const data = questionsData[questObj];
   const [response, setResponse] = useState("");
   const [selectedOptionStyle, setSelectedOptionStyle] = useState(false);
+  const [isCongratsModalOpen, setIsCongratsModalOpen] = useState(false);
+  const [isHintModalOpen, setIsHintModalOpen] = useState(false);
+  const [progressInt, setProgressInt] = useState(50);
 
   const onOptionPress = (option: string) => {
     setResponse(option);
@@ -27,18 +36,33 @@ export default function ElitQuestionView() {
 
   const onSubmit = () => {
     if (response === data.answer) {
-      setQuestObj(questObj + 1);
-      setResponse("");
-      setSelectedOptionStyle(false);
+      setIsCongratsModalOpen(!isHintModalOpen);
+    } else {
+      setIsHintModalOpen(!isHintModalOpen);
     }
   };
 
   const onBackPress = () => {
     if (questObj > 0) {
       setQuestObj(questObj - 1);
+      setProgressInt(progressInt - 50);
       setResponse("");
       setSelectedOptionStyle(false);
     }
+  };
+
+  const onCloseCongratsModal = () => {
+    setIsCongratsModalOpen(!isCongratsModalOpen);
+    setQuestObj(questObj + 1);
+    setProgressInt(progressInt + 50);
+    setResponse("");
+    setSelectedOptionStyle(false);
+  };
+
+  const onCloseHintsModal = () => {
+    setIsHintModalOpen(!isHintModalOpen);
+    setResponse("");
+    setSelectedOptionStyle(false);
   };
 
   return (
@@ -47,7 +71,7 @@ export default function ElitQuestionView() {
         contentInsetAdjustmentBehavior="automatic"
         style={{
           height: "100%",
-          backgroundColor: "white",
+          backgroundColor: COLORS.semanticWhite,
           paddingTop: questObj > 0 ? 10 : 40,
           borderRadius: 16,
         }}>
@@ -56,12 +80,12 @@ export default function ElitQuestionView() {
             <AntDesign
               name="leftcircleo"
               size={30}
-              color="#5828D3"
-              onPress={() => onBackPress()}
+              color={COLORS.darkPurple}
+              onPress={onBackPress}
             />
           </View>
         ) : null}
-        <ProgressBar progressInt={50} />
+        <ProgressBar progressInt={progressInt} />
 
         {/* ------- QUESTION DISPLAY --------- */}
         <View>
@@ -72,25 +96,25 @@ export default function ElitQuestionView() {
 
           {/* ------- MARKDOWN DISPLAY --------- */}
           {data.display ? (
-            <View style={styles.displayContainer}>
+            <View style={componentStyles.displayContainer}>
               <Markdown style={markdownStyles}>{data.display}</Markdown>
             </View>
           ) : null}
 
           {/* ------- OPTIONS --------- */}
-          <View style={styles.optionsContainer}>
+          <View style={componentStyles.optionsContainer}>
             {data.options.map((option, index) => (
               <TouchableOpacity
                 key={index}
                 style={{
-                  ...styles.optionsStyle,
+                  ...componentStyles.optionsStyle,
                   backgroundColor:
                     selectedOptionStyle && option === response
-                      ? "#967FF1"
-                      : "#D8CEFF",
+                      ? COLORS.mediumPurple
+                      : COLORS.lightPurple,
                 }}
                 onPress={() => onOptionPress(option)}>
-                <Text style={styles.singleOption}>{option}</Text>
+                <Text style={componentStyles.singleOption}>{option}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -105,81 +129,23 @@ export default function ElitQuestionView() {
             }}>
             <ThemedButton
               title="SUBMIT"
-              textStyle={{
-                color: "white",
-                fontSize: 16,
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-              buttonStyle={{
-                padding: 10,
-                margin: 10,
-                width: 150,
-                borderRadius: 10,
-                backgroundColor: "#9586D1",
-              }}
-              onPress={() => onSubmit()}
+              textStyle={componentStyles.textStyle}
+              buttonStyle={componentStyles.buttonStyle}
+              onPress={onSubmit}
             />
           </View>
         </View>
+
+        {/* ------- MODALS --------- */}
+        <CongratulationsModal
+          visible={isCongratsModalOpen}
+          onClose={onCloseCongratsModal}
+        />
+        <HintErrorResponseModal
+          visible={isHintModalOpen}
+          onClose={onCloseHintsModal}
+        />
       </ScrollView>
     </SafeAreaView>
   );
 }
-
-const markdownStyles = StyleSheet.create({
-  text: {
-    color: "#5828D3",
-    fontSize: 16,
-  },
-});
-
-const styles = StyleSheet.create({
-  backgroundContainer: {
-    backgroundColor: "#A799E0",
-    flex: 1,
-    paddingTop: 30,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-  },
-  wrapperContainer: {
-    backgroundColor: "white",
-    paddingTop: 40,
-    borderRadius: 10,
-    flex: 1,
-  },
-  optionsContainer: {
-    paddingTop: 10,
-    paddingRight: 20,
-    paddingLeft: 20,
-    display: "flex",
-    gap: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  optionsStyle: {
-    marginLeft: 20,
-    marginRight: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    // backgroundColor: "#D8CEFF",
-    padding: 20,
-    height: 60,
-    width: "70%",
-  },
-  singleOption: {
-    color: "#5828D3",
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  displayContainer: {
-    marginLeft: 20,
-    marginRight: 20,
-    paddingTop: 20,
-    paddingLeft: 10,
-    paddingBottom: 20,
-    backgroundColor: "#F9F3D8",
-  },
-});

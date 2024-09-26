@@ -9,14 +9,15 @@ export type ThemedProgressBarProps = {
 const ProgressBar = ({ progressInt }: ThemedProgressBarProps) => {
   const [progress, setProgress] = useState(new Animated.Value(progressInt));
 
-  // useEffect(() => {
-  //   Animated.timing(progress, { toValue: 75, duration: 2000 }).start();
-  // }, []);
+  useEffect(() => {
+    if (progressInt) {
+      setProgress(new Animated.Value(progressInt));
+    }
+  }, [progressInt]);
 
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.bar, { width: progress }]} />
-      {/* <Text>{progress}</Text> */}
     </View>
   );
 };

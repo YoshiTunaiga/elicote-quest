@@ -1,4 +1,4 @@
-import ElitQuestionView from "@/components/ElitQuestionView";
+import ElitQuestionView from "@/components/ElitQuestionView/ElitQuestionView";
 import { StyleSheet, View } from "react-native";
 
 export default function TabTwoScreen() {
