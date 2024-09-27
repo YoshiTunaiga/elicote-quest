@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 
 // Components
-import { ThemedButton } from "../ThemedButton";
+import { ThemedButton } from "../ThemedComponents/ThemedButton";
 import { ThemedModal } from "./ThemedModal";
 import Confetti from "../Confetti";
 
@@ -33,14 +33,8 @@ export function CongratulationsModal({
         <ThemedButton
           title="Close"
           onPress={onClose}
-          textStyle={{ color: APP_COLORS.darkPurple }}
-          buttonStyle={{
-            backgroundColor: APP_COLORS.semanticWhite,
-            padding: 10,
-            borderRadius: 10,
-            borderWidth: 1,
-            borderColor: APP_COLORS.darkPurple,
-          }}
+          textStyle={styles.buttonTextStyle}
+          buttonStyle={styles.buttonStyle}
         />
       </View>
     </ThemedModal>
@@ -67,4 +61,12 @@ const styles = StyleSheet.create({
     color: APP_COLORS.darkPurple,
     textAlign: "center",
   },
+  buttonStyle: {
+    backgroundColor: APP_COLORS.semanticWhite,
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: APP_COLORS.darkPurple,
+  },
+  buttonTextStyle: { color: APP_COLORS.darkPurple },
 });

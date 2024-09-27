@@ -1,27 +1,18 @@
-import { useEffect, useState } from "react";
-import Markdown from "react-native-markdown-display";
+import { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-} from "react-native";
+import { SafeAreaView, ScrollView, View, Dimensions } from "react-native";
 import { questionsData } from "../../assets/mockData/questionsData";
 
 // Components
-import { ThemedButton } from "../ThemedButton";
+import QuestionDisplay from "./QuestionDisplay";
 import ProgressBar from "../ProgressBar";
 import { CongratulationsModal } from "../modals/CongratulationsModal";
-
-// Styles
-import { componentStyles, markdownStyles } from "./Stylesheet";
-import { APP_COLORS } from "@/constants/Colors";
 import { HintErrorResponseModal } from "../modals/HintErrorResponseModal";
 
-const { width, height } = Dimensions.get("window");
+// Styles
+import { APP_COLORS } from "@/constants/Colors";
+
+const { height } = Dimensions.get("window");
 
 export default function ElitQuestionView() {
   const [questIndex, setQuestIndex] = useState(0);
@@ -95,63 +86,13 @@ export default function ElitQuestionView() {
         <ProgressBar progressInt={progressInt} />
 
         {/* ------- QUESTION DISPLAY --------- */}
-        <View>
-          <View
-            style={{ paddingBottom: 10, paddingLeft: 20, paddingRight: 20 }}>
-            <Text style={{ fontSize: 18 }}>{data.question}</Text>
-          </View>
-
-          {/* ------- MARKDOWN DISPLAY --------- */}
-          {data.display ? (
-            <View style={componentStyles.displayContainer}>
-              <Markdown style={markdownStyles}>{data.display}</Markdown>
-            </View>
-          ) : null}
-
-          {/* ------- OPTIONS --------- */}
-          <View style={componentStyles.optionsContainer}>
-            {data.options.map((option, index) => (
-              <TouchableOpacity
-                key={index}
-                style={{
-                  ...componentStyles.optionsStyle,
-                  width: width > 400 ? 300 : width / 2,
-                  backgroundColor:
-                    selectedOptionStyle && option === response
-                      ? APP_COLORS.mediumPurple
-                      : APP_COLORS.lighterPurple,
-                }}
-                onPress={() => onOptionPress(option)}>
-                <Text
-                  style={{
-                    ...componentStyles.singleOption,
-                    color:
-                      selectedOptionStyle && option === response
-                        ? APP_COLORS.semanticWhite
-                        : APP_COLORS.darkPurple,
-                  }}>
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-
-          {/* ------- SUBMIT BUTTON --------- */}
-          <View
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              paddingTop: 10,
-            }}>
-            <ThemedButton
-              title="SUBMIT"
-              textStyle={componentStyles.textStyle}
-              buttonStyle={componentStyles.buttonStyle}
-              onPress={onSubmit}
-            />
-          </View>
-        </View>
+        <QuestionDisplay
+          data={data}
+          response={response}
+          selectedOptionStyle={selectedOptionStyle}
+          onOptionPress={onOptionPress}
+          onSubmit={onSubmit}
+        />
 
         {/* ------- MODALS --------- */}
         <CongratulationsModal

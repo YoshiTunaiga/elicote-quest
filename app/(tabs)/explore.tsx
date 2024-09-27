@@ -1,6 +1,7 @@
+import { StyleSheet, View } from "react-native";
+
 import ElitQuestionView from "@/components/ElitQuestionView/ElitQuestionView";
 import { APP_COLORS } from "@/constants/Colors";
-import { StyleSheet, View } from "react-native";
 
 export default function QuestComponent() {
   return (

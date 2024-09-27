@@ -14,8 +14,8 @@ import Animated, {
 const { width, height } = Dimensions.get("window");
 
 interface ConfettiProps {
-  x: number;
-  y: number;
+  xAxis: number;
+  yAxis: number;
   size: number;
   color: string;
   delay: number;
@@ -25,8 +25,8 @@ interface ConfettiProps {
 // Helper function to generate random confetti properties
 const generateConfetti = (count: number = 30): ConfettiProps[] => {
   return new Array(count).fill(0).map(() => ({
-    x: Math.random() * width,
-    y: Math.random() * height,
+    xAxis: Math.random() * width,
+    yAxis: Math.random() * height,
     size: Math.random() * 8 + 6,
     color: `hsl(${Math.random() * 360}, 100%, 50%)`,
     delay: Math.random() * 1000,
@@ -49,7 +49,7 @@ const Confetti: React.FC = () => {
 interface ConfettiPieceProps extends ConfettiProps {}
 
 const ConfettiPiece: React.FC<ConfettiPieceProps> = ({
-  x,
+  xAxis,
   size,
   color,
   delay,
@@ -75,7 +75,8 @@ const ConfettiPiece: React.FC<ConfettiPieceProps> = ({
   }));
 
   return (
-    <Animated.View style={[styles.confettiPiece, animatedStyle, { left: x }]}>
+    <Animated.View
+      style={[styles.confettiPiece, animatedStyle, { left: xAxis }]}>
       <Svg height={size} width={size}>
         <Rect width={size} height={size} fill={color} />
       </Svg>
