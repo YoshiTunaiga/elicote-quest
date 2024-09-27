@@ -37,10 +37,7 @@ const styles = StyleSheet.create({
   backgroundContainer: {
     backgroundColor: APP_COLORS.lightPurple,
     flex: 1,
-    paddingTop: 30,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
+    padding: 10,
   },
   wrapperContainer: {
     backgroundColor: APP_COLORS.lightPurple,

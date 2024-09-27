@@ -1,4 +1,3 @@
-// React native progress bar component in tsx format
 import { APP_COLORS } from "@/constants/Colors";
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Animated } from "react-native";

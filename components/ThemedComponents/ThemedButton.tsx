@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, type TextProps } from "react-native";
+import { Text, Pressable, type TextProps } from "react-native";
 
 type ThemedTextProps = TextProps & {
   title?: string;
@@ -7,14 +7,14 @@ type ThemedTextProps = TextProps & {
 };
 
 export function ThemedButton({
-  title,
-  textStyle,
-  buttonStyle,
+  title = "",
+  textStyle = {},
+  buttonStyle = {},
   onPress,
 }: ThemedTextProps) {
   return (
-    <TouchableOpacity style={buttonStyle} onPress={onPress}>
+    <Pressable style={buttonStyle} onPress={onPress}>
       <Text style={textStyle}>{title}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 }

@@ -4,15 +4,20 @@ import React from "react";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { APP_COLORS } from "@/constants/Colors";
 
+const screenOptions = {
+  home: "index",
+  quest: "explore",
+};
+
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: APP_COLORS.mediumPurple,
-        headerShown: false,
+        headerTitleAlign: "center",
       }}>
       <Tabs.Screen
-        name="index"
+        name={screenOptions.home}
         options={{
           title: "Home",
           tabBarIcon: ({ color, focused }) => (
@@ -24,7 +29,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name={screenOptions.quest}
         options={{
           title: "Quest",
           tabBarIcon: ({ color, focused }) => (

@@ -1,5 +1,5 @@
 import Markdown from "react-native-markdown-display";
-import { Text, TouchableOpacity, View, Dimensions } from "react-native";
+import { Text, Pressable, View, useWindowDimensions } from "react-native";
 
 // Components
 import { ThemedButton } from "../ThemedComponents/ThemedButton";
@@ -7,8 +7,6 @@ import { ThemedButton } from "../ThemedComponents/ThemedButton";
 // Styles
 import { componentStyles, markdownStyles } from "./Stylesheet";
 import { APP_COLORS } from "@/constants/Colors";
-
-const { width } = Dimensions.get("window");
 
 type QuestionDisplayProps = {
   data: any;
@@ -19,12 +17,14 @@ type QuestionDisplayProps = {
 };
 
 export default function QuestionDisplay({
-  data,
-  response,
-  selectedOptionStyle,
+  data = {},
+  response = "",
+  selectedOptionStyle = false,
   onOptionPress,
   onSubmit,
 }: QuestionDisplayProps) {
+  const { height, width } = useWindowDimensions();
+
   return (
     <View>
       <View style={{ paddingBottom: 10, paddingLeft: 20, paddingRight: 20 }}>
@@ -41,11 +41,13 @@ export default function QuestionDisplay({
       {/* ------- OPTIONS --------- */}
       <View style={componentStyles.optionsContainer}>
         {data.options.map((option: string, index: number) => (
-          <TouchableOpacity
+          <Pressable
             key={index}
             style={{
               ...componentStyles.optionsStyle,
               width: width > 400 ? 300 : width / 2,
+              height: height > 800 ? 60 : 50,
+              padding: height > 800 ? 20 : 10,
               backgroundColor:
                 selectedOptionStyle && option === response
                   ? APP_COLORS.mediumPurple
@@ -62,7 +64,7 @@ export default function QuestionDisplay({
               }}>
               {option}
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         ))}
       </View>
 

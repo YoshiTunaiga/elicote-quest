@@ -28,8 +28,6 @@ export const componentStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    padding: 20,
-    height: 60,
   },
   singleOption: {
     color: APP_COLORS.darkPurple,

@@ -1,6 +1,12 @@
 import { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { SafeAreaView, ScrollView, View, Dimensions } from "react-native";
+import {
+  ScrollView,
+  View,
+  Dimensions,
+  Text,
+  useWindowDimensions,
+} from "react-native";
 import { questionsData } from "../../assets/mockData/questionsData";
 
 // Components
@@ -11,8 +17,7 @@ import { HintErrorResponseModal } from "../modals/HintErrorResponseModal";
 
 // Styles
 import { APP_COLORS } from "@/constants/Colors";
-
-const { height } = Dimensions.get("window");
+import { componentStyles } from "./Stylesheet";
 
 export default function ElitQuestionView() {
   const [questIndex, setQuestIndex] = useState(0);
@@ -23,6 +28,8 @@ export default function ElitQuestionView() {
   const [isHintModalOpen, setIsHintModalOpen] = useState(false);
   const progressState = questionsData.length * 5;
   const [progressInt, setProgressInt] = useState(progressState);
+
+  const { height } = useWindowDimensions();
 
   const onOptionPress = (option: string) => {
     setResponse(option);
@@ -61,50 +68,51 @@ export default function ElitQuestionView() {
   };
 
   return (
-    <SafeAreaView>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={{
-          height: height - 90,
-          backgroundColor: APP_COLORS.semanticWhite,
-          paddingTop: questIndex > 0 ? 10 : 40,
-          borderRadius: 16,
-        }}>
-        {/* ------- BACK BUTTON --------- */}
-        {questIndex > 0 ? (
-          <View style={{ paddingLeft: 20 }}>
-            <AntDesign
-              name="leftcircleo"
-              size={30}
-              color={APP_COLORS.darkPurple}
-              onPress={onBackPress}
-            />
-          </View>
-        ) : null}
+    <ScrollView contentInsetAdjustmentBehavior="automatic">
+      <View style={componentStyles.backgroundContainer}>
+        <View
+          style={{
+            backgroundColor: APP_COLORS.semanticWhite,
+            borderRadius: 16,
+            height: height / 1.2,
+            paddingTop: questIndex > 0 ? 10 : 40,
+          }}>
+          {/* ------- BACK BUTTON --------- */}
+          {questIndex > 0 ? (
+            <View style={{ paddingLeft: 20 }}>
+              <AntDesign
+                name="leftcircleo"
+                size={30}
+                color={APP_COLORS.darkPurple}
+                onPress={onBackPress}
+              />
+            </View>
+          ) : null}
 
-        {/* ------- PROGRESS BAR --------- */}
-        <ProgressBar progressInt={progressInt} />
+          {/* ------- PROGRESS BAR --------- */}
+          <ProgressBar progressInt={progressInt} />
 
-        {/* ------- QUESTION DISPLAY --------- */}
-        <QuestionDisplay
-          data={data}
-          response={response}
-          selectedOptionStyle={selectedOptionStyle}
-          onOptionPress={onOptionPress}
-          onSubmit={onSubmit}
-        />
+          {/* ------- QUESTION DISPLAY --------- */}
+          <QuestionDisplay
+            data={data}
+            response={response}
+            selectedOptionStyle={selectedOptionStyle}
+            onOptionPress={onOptionPress}
+            onSubmit={onSubmit}
+          />
 
-        {/* ------- MODALS --------- */}
-        <CongratulationsModal
-          visible={isCongratsModalOpen}
-          onClose={onCloseCongratsModal}
-          questIndex={questIndex}
-        />
-        <HintErrorResponseModal
-          visible={isHintModalOpen}
-          onClose={onCloseHintsModal}
-        />
-      </ScrollView>
-    </SafeAreaView>
+          {/* ------- MODALS --------- */}
+          <CongratulationsModal
+            visible={isCongratsModalOpen}
+            onClose={onCloseCongratsModal}
+            questIndex={questIndex}
+          />
+          <HintErrorResponseModal
+            visible={isHintModalOpen}
+            onClose={onCloseHintsModal}
+          />
+        </View>
+      </View>
+    </ScrollView>
   );
 }
