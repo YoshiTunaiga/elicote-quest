@@ -13,7 +13,6 @@ import Animated, {
 
 const { width, height } = Dimensions.get("window");
 
-// TypeScript type for confetti properties
 interface ConfettiProps {
   x: number;
   y: number;
@@ -47,7 +46,6 @@ const Confetti: React.FC = () => {
   );
 };
 
-// TypeScript type for ConfettiPiece component props
 interface ConfettiPieceProps extends ConfettiProps {}
 
 const ConfettiPiece: React.FC<ConfettiPieceProps> = ({

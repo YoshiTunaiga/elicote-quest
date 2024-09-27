@@ -11,18 +11,24 @@ import { APP_COLORS } from "@/constants/Colors";
 type CongratulationsModalProps = {
   visible: boolean;
   onClose: () => void;
+  questIndex: number;
 };
 
 export function CongratulationsModal({
   visible,
   onClose,
+  questIndex,
 }: CongratulationsModalProps) {
   return (
     <ThemedModal visible={visible}>
       <View style={styles.modalWrapper}>
         <Confetti />
         <Text style={styles.title}>Congratulations!</Text>
-        <Text style={styles.text}>You have earned an Expo badge!</Text>
+        {questIndex > 1 ? (
+          <Text style={styles.text}>You have earned an Expo badge!</Text>
+        ) : (
+          <Text style={styles.text}>Your answer was correct!</Text>
+        )}
 
         <ThemedButton
           title="Close"

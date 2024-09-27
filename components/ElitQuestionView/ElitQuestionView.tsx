@@ -24,13 +24,14 @@ import { HintErrorResponseModal } from "../modals/HintErrorResponseModal";
 const { width, height } = Dimensions.get("window");
 
 export default function ElitQuestionView() {
-  const [questObj, setQuestObj] = useState(0);
-  const data = questionsData[questObj];
+  const [questIndex, setQuestIndex] = useState(0);
+  const data = questionsData[questIndex];
   const [response, setResponse] = useState("");
   const [selectedOptionStyle, setSelectedOptionStyle] = useState(false);
   const [isCongratsModalOpen, setIsCongratsModalOpen] = useState(false);
   const [isHintModalOpen, setIsHintModalOpen] = useState(false);
-  const [progressInt, setProgressInt] = useState(50);
+  const progressState = questionsData.length * 5;
+  const [progressInt, setProgressInt] = useState(progressState);
 
   const onOptionPress = (option: string) => {
     setResponse(option);
@@ -46,9 +47,9 @@ export default function ElitQuestionView() {
   };
 
   const onBackPress = () => {
-    if (questObj > 0) {
-      setQuestObj(questObj - 1);
-      setProgressInt(progressInt - 50);
+    if (questIndex > 0) {
+      setQuestIndex(questIndex - 1);
+      setProgressInt(progressInt - progressState);
       setResponse("");
       setSelectedOptionStyle(false);
     }
@@ -56,8 +57,8 @@ export default function ElitQuestionView() {
 
   const onCloseCongratsModal = () => {
     setIsCongratsModalOpen(!isCongratsModalOpen);
-    setQuestObj(questObj + 1);
-    setProgressInt(progressInt + 50);
+    setQuestIndex(questIndex + 1);
+    setProgressInt(progressInt + progressState);
     setResponse("");
     setSelectedOptionStyle(false);
   };
@@ -75,10 +76,11 @@ export default function ElitQuestionView() {
         style={{
           height: height - 90,
           backgroundColor: APP_COLORS.semanticWhite,
-          paddingTop: questObj > 0 ? 10 : 40,
+          paddingTop: questIndex > 0 ? 10 : 40,
           borderRadius: 16,
         }}>
-        {questObj > 0 ? (
+        {/* ------- BACK BUTTON --------- */}
+        {questIndex > 0 ? (
           <View style={{ paddingLeft: 20 }}>
             <AntDesign
               name="leftcircleo"
@@ -88,6 +90,8 @@ export default function ElitQuestionView() {
             />
           </View>
         ) : null}
+
+        {/* ------- PROGRESS BAR --------- */}
         <ProgressBar progressInt={progressInt} />
 
         {/* ------- QUESTION DISPLAY --------- */}
@@ -153,6 +157,7 @@ export default function ElitQuestionView() {
         <CongratulationsModal
           visible={isCongratsModalOpen}
           onClose={onCloseCongratsModal}
+          questIndex={questIndex}
         />
         <HintErrorResponseModal
           visible={isHintModalOpen}
