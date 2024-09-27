@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions,
 } from "react-native";
 import { questionsData } from "../../assets/mockData/questionsData";
 
@@ -19,6 +20,8 @@ import { CongratulationsModal } from "../modals/CongratulationsModal";
 import { componentStyles, markdownStyles } from "./Stylesheet";
 import { APP_COLORS } from "@/constants/Colors";
 import { HintErrorResponseModal } from "../modals/HintErrorResponseModal";
+
+const { width, height } = Dimensions.get("window");
 
 export default function ElitQuestionView() {
   const [questObj, setQuestObj] = useState(0);
@@ -70,7 +73,7 @@ export default function ElitQuestionView() {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={{
-          height: "100%",
+          height: height - 90,
           backgroundColor: APP_COLORS.semanticWhite,
           paddingTop: questObj > 0 ? 10 : 40,
           borderRadius: 16,
@@ -108,6 +111,7 @@ export default function ElitQuestionView() {
                 key={index}
                 style={{
                   ...componentStyles.optionsStyle,
+                  width: width > 400 ? 300 : width / 2,
                   backgroundColor:
                     selectedOptionStyle && option === response
                       ? APP_COLORS.mediumPurple

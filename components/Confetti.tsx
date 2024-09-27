@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
-import Svg, { Circle, Rect } from "react-native-svg";
+import Svg, { Rect } from "react-native-svg";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -52,7 +52,6 @@ interface ConfettiPieceProps extends ConfettiProps {}
 
 const ConfettiPiece: React.FC<ConfettiPieceProps> = ({
   x,
-  y,
   size,
   color,
   delay,

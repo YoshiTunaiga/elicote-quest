@@ -30,7 +30,6 @@ export const componentStyles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
     height: 60,
-    width: "70%",
   },
   singleOption: {
     color: APP_COLORS.darkPurple,
