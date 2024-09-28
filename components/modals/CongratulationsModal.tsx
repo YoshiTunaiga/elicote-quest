@@ -4,7 +4,7 @@ import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 // Components
 import { ThemedButton } from "../ThemedComponents/ThemedButton";
 import { ThemedModal } from "./ThemedModal";
-import Confetti from "../Confetti";
+import Confetti from "../animations/Confetti";
 
 // Styles
 import { APP_COLORS } from "@/constants/Colors";

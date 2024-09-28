@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Text } from "react-native";
 
-import { HelloWave } from "@/components/HelloWave";
+import { HelloWave } from "@/components/animations/HelloWave";
 import { ThemedButton } from "@/components/ThemedComponents/ThemedButton";
 
 import { APP_COLORS } from "@/constants/Colors";

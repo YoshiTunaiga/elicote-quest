@@ -13,48 +13,15 @@ import Animated, {
 
 const { width, height } = Dimensions.get("window");
 
-interface ConfettiProps {
-  xAxis: number;
-  yAxis: number;
-  size: number;
-  color: string;
-  delay: number;
-  duration: number;
-}
-
-// Helper function to generate random confetti properties
-const generateConfetti = (count: number = 30): ConfettiProps[] => {
-  return new Array(count).fill(0).map(() => ({
-    xAxis: Math.random() * width,
-    yAxis: Math.random() * height,
-    size: Math.random() * 8 + 6,
-    color: `hsl(${Math.random() * 360}, 100%, 50%)`,
-    delay: Math.random() * 1000,
-    duration: Math.random() * 3000 + 2000,
-  }));
-};
-
-const Confetti: React.FC = () => {
-  const confettiArray = generateConfetti();
-
-  return (
-    <View style={styles.container}>
-      {confettiArray.map((confetti, index) => (
-        <ConfettiPiece key={index} {...confetti} />
-      ))}
-    </View>
-  );
-};
-
 interface ConfettiPieceProps extends ConfettiProps {}
 
-const ConfettiPiece: React.FC<ConfettiPieceProps> = ({
+const ConfettiPiece = ({
   xAxis,
   size,
   color,
   delay,
   duration,
-}) => {
+}: ConfettiPieceProps) => {
   const translateY = useSharedValue(-size);
 
   useEffect(() => {
@@ -81,6 +48,39 @@ const ConfettiPiece: React.FC<ConfettiPieceProps> = ({
         <Rect width={size} height={size} fill={color} />
       </Svg>
     </Animated.View>
+  );
+};
+
+interface ConfettiProps {
+  xAxis: number;
+  yAxis: number;
+  size: number;
+  color: string;
+  delay: number;
+  duration: number;
+}
+
+// Helper function to generate random confetti properties
+const generateConfetti = (count: number = 30): ConfettiProps[] => {
+  return new Array(count).fill(0).map(() => ({
+    xAxis: Math.random() * width,
+    yAxis: Math.random() * height,
+    size: Math.random() * 8 + 6,
+    color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+    delay: Math.random() * 1000,
+    duration: Math.random() * 3000 + 2000,
+  }));
+};
+
+const Confetti = () => {
+  const confettiArray = generateConfetti();
+
+  return (
+    <View style={styles.container}>
+      {confettiArray.map((confetti, index) => (
+        <ConfettiPiece key={index} {...confetti} />
+      ))}
+    </View>
   );
 };
 
