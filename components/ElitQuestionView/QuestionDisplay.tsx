@@ -52,6 +52,7 @@ export default function QuestionDisplay({
                 selectedOptionStyle && option === response
                   ? APP_COLORS.mediumPurple
                   : APP_COLORS.lighterPurple,
+              cursor: "pointer",
             }}
             onPress={() => onOptionPress(option)}>
             <Text

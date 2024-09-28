@@ -9,9 +9,7 @@ export const componentStyles = StyleSheet.create({
   },
   wrapperContainer: {
     backgroundColor: APP_COLORS.semanticWhite,
-    paddingTop: 40,
-    borderRadius: 10,
-    flex: 1,
+    borderRadius: 16,
   },
   optionsContainer: {
     paddingTop: 10,

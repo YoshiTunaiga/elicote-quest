@@ -14,7 +14,7 @@ export default function HomeScreen() {
   const navigation = useNavigation<navigationProps>();
 
   const onStart = () => {
-    navigation.navigate("explore");
+    navigation.navigate("explore", { screen: true });
   };
 
   return (

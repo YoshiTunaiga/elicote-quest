@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet } from "react-native";
-import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 
 // Components
 import { ThemedButton } from "../ThemedComponents/ThemedButton";
@@ -9,46 +8,28 @@ import Confetti from "../Confetti";
 // Styles
 import { APP_COLORS } from "@/constants/Colors";
 
-type CongratulationsModalProps = {
+type CompletedQuestModalProps = {
   visible: boolean;
   onClose: () => void;
-  questIndex: number;
 };
 
-export function CongratulationsModal({
+export function CompletedQuestModal({
   visible,
   onClose,
-  questIndex,
-}: CongratulationsModalProps) {
-  const isTimeForBadge = questIndex === 2 || questIndex === 7;
+}: CompletedQuestModalProps) {
   return (
     <ThemedModal visible={visible}>
-      {isTimeForBadge && (
-        <SimpleLineIcons
-          name="badge"
-          size={150}
-          color="black"
-          style={styles.badgeIcon}
-        />
-      )}
-
       <View style={styles.modalWrapper}>
         <Confetti />
-        <Text style={styles.title}>Congratulations!</Text>
-        {isTimeForBadge ? (
-          <Text style={styles.text}>You have earned an Expo badge!</Text>
-        ) : (
-          <Text style={styles.text}>Your answer was correct!</Text>
-        )}
-
+        <Text style={styles.title}>Elite Quest Completed!</Text>
+        <Text style={styles.text}>
+          Congratulations!, you have completed your quest.
+        </Text>
         <ThemedButton
-          title="Close"
+          title="Restart"
           onPress={onClose}
           textStyle={styles.buttonTextStyle}
-          buttonStyle={{
-            ...styles.buttonStyle,
-            marginTop: isTimeForBadge ? 60 : 0,
-          }}
+          buttonStyle={styles.buttonStyle}
         />
       </View>
     </ThemedModal>
@@ -68,14 +49,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: APP_COLORS.darkPurple,
     textAlign: "center",
-  },
-  badgeIcon: {
-    color: APP_COLORS.darkPurple,
-    opacity: 0.3,
-    textAlign: "center",
-    position: "absolute",
-    alignSelf: "center",
-    zIndex: 1,
   },
   text: {
     fontSize: 24,
